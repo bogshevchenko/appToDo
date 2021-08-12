@@ -1,0 +1,108 @@
+html {
+    background-color: rgb(245, 245, 245);
+}
+
+.app {
+    border: solid lightgray;
+    height: auto;
+    border-radius: 10px;
+    margin: 20%;
+    min-height: 450px;
+}
+
+ul {
+    padding-right: 3%;
+    padding-left: 3%;
+    border: solid lightgray;
+    border-radius: 5px;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+#title {
+    padding-right: 10%;
+    padding-left: 10%; 
+}
+
+.menu {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: center;
+}
+
+
+li {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: stretch;
+    list-style-type: none;
+    margin: 5px;
+    width: 90%;
+    height: 40px;
+    border: solid lightgray;
+    border-radius: 5px;
+    background-color: rgb(245, 245, 245);
+}
+
+
+#inputTask {
+    flex-grow: 4;
+    width: 150%;
+    height: 180%;
+    background-color: rgb(245, 245, 245);
+    margin: auto;
+    margin-left: 10px;
+    outline: none;
+    border: none;
+}
+
+.addTaskButton {
+    margin: auto;
+    flex-grow: 1;
+    width: fit-content;
+    height: fit-content;
+}
+
+/* Style the header */
+.header {
+    background-color: lightgray;
+    padding: 30px 40px;
+    color: white;
+    text-align: center;
+  }
+
+button {
+    background-color: rgb(245, 245, 245);
+    border: solid rgb(245, 245, 245);
+    border-radius: 5px;
+    margin: 5px;
+}
+
+.task.completed {
+    text-decoration: line-through;
+    background: #ddd;
+}
+
+.inputLi {
+    height: auto;
+}
+
+.textTaskDiv {
+    display: flex;
+    text-overflow: ellipsis;
+    width: 500px;
+    overflow: hidden;
+    align-items: center;
+    height: 100%;
+    padding: 0 0 0 25px;
+    cursor: pointer;
+}
+
+.deleteTaskButton {
+    display: block;
+    flex-grow: 1;
+    width: fit-content;
+    height: fit-content;
+}

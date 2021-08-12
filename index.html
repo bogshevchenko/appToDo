@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css" type="text/css"/>
+        <meta charset="utf-8" />
+        <title>JavaScript app</title>
+    </head>
+
+    <body>
+        <div class="app">
+            <div class="header">
+                <h2 id="title">My To Do List</h2>
+
+                <div class="menu">
+                    <button onclick="applyFilterAll()" id="filterButtonAll" class="filterButton">All</button>
+                    <button onclick="applyFilterOnlyСompleted()" id="filterButtonOnlyСompleted" class="filterButton">Only сompleted</button>
+                    <button onclick="applyFilterOnlyNotСompleted()" id="filterButtonOnlyNotСompleted" class="filterButton">Only not сompleted</button>
+
+                    <button onclick="deleteAllTasks()" class="deleteAllTaskButton"><img src="data/deleteAllTasksIcon.png" alt="Delete all tasks"></button>
+                </div>
+            </div>
+
+            <ul id="tasksUl">
+                <li class="inputLi">
+                    <input onkeypress="handleKeyDown(event)" type="text" id="inputTask" placeholder="Title...">
+                    <button type="button" onclick="newElement()" class="addTaskButton"><img src="data/addTask.png" alt="Add  task"></button>
+                </li>
+            </ul>
+        </div>
+
+            
+
+        <script>
+
+            const handleKeyDown = (event) => {
+                console.log(event.keyCode);
+                if (event.keyCode == 13) {
+                    newElement();
+                }
+            }
+
+            /**
+             * Создание новой задачи.
+             */
+            const newElement = () => {
+                try {
+                    let inputTask = document.querySelector("#inputTask").value.trim();
+                    let tasksUl = document.querySelector("#tasksUl");
+                    if (inputTask !== '') {
+                        let textDiv = document.createElement('div');
+                        let taskLi = document.createElement('li');
+                        textDiv.append(inputTask);
+                        textDiv.className = 'textTaskDiv'
+                        taskLi.setAttribute("onclick", "taskDone(this)");
+                        taskLi.className = 'task';
+                        taskLi.id = 'task' + document.querySelectorAll("#tasksUl > li").length;
+
+                        taskLi.append(textDiv);
+                        taskLi.append(getDeleteSpan(taskLi.id));
+
+                        tasksUl.prepend(taskLi);
+                        document.querySelector("#inputTask").value = '';
+                    }
+                    else {
+                        alert('Invalid value entered');
+                    }
+                } catch(e) {
+                    alert(e.message);
+                }
+            }
+
+            /**
+             * Смена статуса задачи
+             */
+            const taskDone = (element) => {
+                try {
+                    if (element.className.indexOf('completed') < 0) {
+                        element.className += ' completed';
+                    } else {
+                        element.className = element.className.replace('completed', '').trim();
+                    }
+                } catch (e) {
+                    alert(e.message)
+                }
+            }
+
+            /**
+             * Удаление задачи
+             */
+            const deleteTask = (element) => {
+                try {
+                    document.querySelector('#' + element.value).remove();
+                } catch (e) {
+                    alert(e.message)
+                }
+            }
+
+            /**
+             * Возвращает span удаления задачи
+             * 
+             * return [object HTMLSpanElement]
+             */
+            const getDeleteSpan = (elementId) => {
+                let deleteTask = document.createElement('button');
+                deleteTask.setAttribute("onclick", "deleteTask(this)");
+                deleteTask.className = 'deleteTaskButton';
+                deleteTask.value = elementId;
+                
+                let imgDeleteTask = document.createElement('img');
+                imgDeleteTask.src = 'data/deleteTaskIcon.png';
+                imgDeleteTask.alt = 'Delete';
+                deleteTask.append(imgDeleteTask);
+
+                return deleteTask;
+            }
+
+            /**
+             * Удаление всех задач
+             */
+            const deleteAllTasks = () => {
+                try {
+                    let tasksUl = document.querySelectorAll("#tasksUl > li");
+
+                    tasksUl.forEach((element) => {
+                        if (element.className !== 'inputLi' && element.style.display === '') {
+                            element.remove();
+                        } 
+                    })
+                } catch (e) {
+                    alert(e.message);
+                }
+            }
+
+            /**
+             * Применение фильтра все задачи
+             */
+            const applyFilterAll = () => {
+                let tasks = document.querySelectorAll("#tasksUl > li");
+
+                tasks.forEach((element) => element.style.display = '');
+            }
+
+            /**
+             * Применение фильтра только выполненные
+             */
+            const applyFilterOnlyСompleted = () => {
+                let tasks = document.querySelectorAll("#tasksUl > li");
+
+                tasks.forEach((element) => {
+                    if (element.className === 'task completed') {
+                        element.style.display = '';
+                    } 
+                    else {
+                        element.style.display = 'none';
+                    }
+                });
+            }
+
+            /**
+             * Применение фильтра только не выполненные
+             */
+            const applyFilterOnlyNotСompleted = () => {
+                let tasks = document.querySelectorAll("#tasksUl > li");
+
+                tasks.forEach((element) => {
+                    if (element.className === 'task completed') {
+                        element.style.display = 'none';
+                    } 
+                    else {
+                        element.style.display = '';
+                    }
+                });
+            }
+        </script>
+    </body>
+</html>
